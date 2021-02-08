@@ -3,6 +3,9 @@ import RPi.GPIO as GPIO
 login_btn = 37
 logout_btn = 36
 
+# ===========================================================================
+# =============================For Single Press==============================
+
 def init():
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(login_btn, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -16,4 +19,7 @@ def read(log_in_func, log_out_func, name):
 		
 	if GPIO.event_detected(logout_btn):
 		log_out_func(name)
+		
+# ===========================================================================
+	
 
