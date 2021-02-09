@@ -1,25 +1,52 @@
+import time
 import RPi.GPIO as GPIO
 
-login_btn = 37
-logout_btn = 36
+login_btn 		= 37
+logout_btn 		= 36
+arrival_btn 	= 31
+departure_btn 	= 29
 
-# ===========================================================================
-# =============================For Single Press==============================
-
+def log_in(name):
+	if GPIO.input(login_btn) == 1:
+		print(name)
+		
+def log_out(name):
+	if GPIO.input(logout_btn) == 1:
+		print(name)
+		
+def arrival(name):
+	if GPIO.input(arrival_btn) == 1:
+		print(name)
+		
+def departure(name):
+	if GPIO.input(departure_btn) == 1:
+		print(name)
+		
 def init():
 	GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(login_btn, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 	GPIO.setup(logout_btn, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+	GPIO.setup(arrival_btn, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+	GPIO.setup(departure_btn, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+	
 	GPIO.add_event_detect(login_btn, GPIO.FALLING, bouncetime=200)
 	GPIO.add_event_detect(logout_btn, GPIO.FALLING, bouncetime=200)
+	GPIO.add_event_detect(arrival_btn, GPIO.FALLING, bouncetime=200)
+	GPIO.add_event_detect(departure_btn, GPIO.FALLING, bouncetime=200)
 	
-def read(log_in_func, log_out_func, name):
+def read(login_funcy, logout_funcy, arrival_funcy, departure_funcy, name):
 	if GPIO.event_detected(login_btn):
-		log_in_func(name)
+		login_funcy(name)
 		
 	if GPIO.event_detected(logout_btn):
-		log_out_func(name)
+		logout_funcy(name)
 		
-# ===========================================================================
+	if GPIO.event_detected(arrival_btn):
+		arrival_funcy(name)
+		
+	if GPIO.event_detected(departure_btn):
+		departure_funcy(name)
+
+#main()
 	
 
