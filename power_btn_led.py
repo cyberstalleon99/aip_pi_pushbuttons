@@ -1,3 +1,5 @@
+# This script is being run at startup and shutdown
+# Copy of this script is the one being executed at /lib/systemd/system-shutdown
 import RPi.GPIO as GPIO
 
 led = 18
